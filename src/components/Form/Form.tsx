@@ -1,7 +1,7 @@
 import style from './Form.module.css'
 import { PlusCircle, ClipboardText } from 'phosphor-react'
 import { Task } from '../Task/Task'
-import { useState, FormEvent, ChangeEvent } from 'react'
+import { useState, FormEvent, ChangeEvent, InvalidEvent } from 'react'
 
 interface TasksInfo {
     id: number;
@@ -15,7 +15,8 @@ export function Form() {
     const[newTask, setNewTask] = useState('')
     
     const couter =  tasks.filter(data => data.checked === true).length
-    const styleNoTasks = tasks.length === 0 ? true : false
+    const isNewTaskEmpty = newTask.length === 0
+    const isTasksEmpty = tasks.length === 0
 
     function handleCreateNewTask(event:FormEvent) {
         event.preventDefault()
@@ -28,6 +29,7 @@ export function Form() {
     }
 
     function handleNewTaskChange(event:ChangeEvent<HTMLInputElement>) {
+        event.target.setCustomValidity('')
         setNewTask(event.target.value)
     }
 
@@ -48,11 +50,25 @@ export function Form() {
         TasksSet(newState)
     }
 
+    function handleCreateNewInvalidTask(event:InvalidEvent<HTMLInputElement>) {
+        event.target.setCustomValidity('É obrigatório preencher o campo!')
+    }
+
     return (
         <div className={style.content}>
             <form onSubmit={handleCreateNewTask}>
-                <input type="text" placeholder='Adicione uma nova tarefa' value={newTask} onChange={handleNewTaskChange} />
-                <button type="submit">Criar <PlusCircle className={style.plusCircle}/></button>
+                <input 
+                type="text" 
+                placeholder='Adicione uma nova tarefa' 
+                onInvalid={handleCreateNewInvalidTask} 
+                value={newTask} 
+                onChange={handleNewTaskChange}
+                required
+                />
+                <button 
+                type="submit"
+                disabled={isNewTaskEmpty}
+                >Criar <PlusCircle className={style.plusCircle}/></button>
             </form>
 
             <div className={style.tasks}>
@@ -62,8 +78,8 @@ export function Form() {
                 </div>
 
                 {
-                    styleNoTasks ?
-                    
+                    isTasksEmpty ?
+
                         <div className={style.noTasks}>
                             <ClipboardText size={56} color="#333333" />
                             <p>Você ainda não tem tarefas cadastradas</p>

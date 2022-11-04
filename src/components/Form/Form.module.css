@@ -55,7 +55,7 @@
     transition: 0.15s;
 }
 
-.content form button:hover {
+.content form button:not(:disabled):hover {
     background-color: var(--blue-primary);
     transform: translateY(-5%);
     cursor: pointer;
@@ -64,6 +64,11 @@
     border: none;
     box-shadow: none;
     outline: none;
+}
+
+.content form button:disabled  {
+    opacity: 70%;
+    cursor: not-allowed;
 }
 
 .plusCircle {
@@ -177,9 +182,15 @@
     }
 
     .tasks {
-        margin-top: 1rem;
+        margin-top: 2rem;
     }
 
+    .noTasks {
+        text-align: center;
+    }
+}
+
+@media (max-width:424px) {
     .info {
         flex-direction: column;
     }
