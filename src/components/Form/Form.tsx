@@ -15,6 +15,7 @@ export function Form() {
     const[newTask, setNewTask] = useState('')
     
     const couter =  tasks.filter(data => data.checked === true).length
+    const styleNoTasks = tasks.length === 0 ? true : false
 
     function handleCreateNewTask(event:FormEvent) {
         event.preventDefault()
@@ -60,23 +61,31 @@ export function Form() {
                     <p>Concluídas <span>{couter} de {tasks.length}</span></p>
                 </div>
 
-                {/* <div className={style.noTasks}>
-                    <ClipboardText size={56} color="#333333" />
-                    <p>Você ainda não tem tarefas cadastradas</p>
-                    <span>Crie e organize seus itens a fazer</span>
-                </div> */}
-                {tasks.map(data => {
-                    return (
-                        <Task 
-                        key={data.id} 
-                        task={data.task} 
-                        checked={data.checked} 
-                        id={data.id} 
-                        functionChange={changeValueChecked}
-                        functionDelete={deleteTask}
-                        />
-                    )
-                })}
+                {
+                    styleNoTasks ?
+                    
+                        <div className={style.noTasks}>
+                            <ClipboardText size={56} color="#333333" />
+                            <p>Você ainda não tem tarefas cadastradas</p>
+                            <span>Crie e organize seus itens a fazer</span>
+                        </div>
+
+                    :
+
+                    tasks.map(data => {
+                        return (
+                            <Task 
+                            key={data.id} 
+                            task={data.task} 
+                            checked={data.checked} 
+                            id={data.id} 
+                            functionChange={changeValueChecked}
+                            functionDelete={deleteTask}
+                            />
+                        )
+                    })
+                    
+                }
             </div>
         </div>
     )
