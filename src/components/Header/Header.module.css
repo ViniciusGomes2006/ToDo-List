@@ -1,0 +1,13 @@
+.Header {    
+    width: 100vw;
+    padding: 5rem 0;
+
+    background-color: var(--gray-700);
+
+    display: flex;
+    justify-content: center;
+}
+
+.Header img {
+    width: 7rem;
+}

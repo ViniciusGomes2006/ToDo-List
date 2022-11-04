@@ -1,0 +1,124 @@
+.task {
+    margin-top: 1.5rem;
+
+    padding: 1rem 0;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+
+    background-color: var(--gray-500);
+    border: 1px solid var(--gray-400);
+    border-radius: 8px;
+
+    width: 46rem;
+}
+
+.task + .task {
+    margin-top: 1rem;
+}
+
+.checkInput {
+    margin: 0 0 0 16px;
+
+    display: block;
+    position: relative;
+    height: 1.125rem;
+    width: 1.125rem;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+.checkInput input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkbox {
+    position: absolute;
+    
+    height: 1.125rem;
+    width: 1.125rem;
+    background-color: transparent;
+    border: 2px solid var(--blue-primary);
+    border-radius: 50%;
+}
+
+.checkInput:hover input~.checkbox {
+    background-color: var(--purple-secondary);
+    border: 2px solid var(--purple-secondary);
+}
+
+.checkInput input:checked~.checkbox {
+    background-color: var(--purple-secondary);
+    border: 2px solid var(--purple-secondary);
+}
+
+
+.checkInput input:checked~.checkbox:after {
+    display: block;
+}
+
+.checkInput .checkbox:after {
+    content: "";
+    position: relative;
+    display: none;
+    left: 0.32rem;
+    top: 0.15rem;
+    width: 0.1rem;
+    height: 0.4rem;
+    border: solid white;
+    border-width: 0 0.1rem 0.1rem 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.task p {
+    width: 87%;
+    
+    margin-left: 16px;
+    color: var(--gray-100);
+    font-size: 14px;
+    font-weight: regular;
+    line-height: 140%;
+
+}
+
+.task p[id="checked"] {
+    color: var(--gray-300);
+    text-decoration-line: line-through;
+}
+
+.task button {
+    margin: 0 1rem ;
+    font-size: 0;
+    padding: 0;
+    background-color: transparent;
+
+    color: var(--gray-300);
+    transition: 0.15s;
+}
+
+.task button:hover {
+    color: var(--red-primary);
+}
+
+.task button:focus {
+    border: none;
+    box-shadow: none;
+    outline: none;
+}
+
+@media (max-width: 800px) {
+    .task {
+        max-width: 70vw;
+    }
+}
